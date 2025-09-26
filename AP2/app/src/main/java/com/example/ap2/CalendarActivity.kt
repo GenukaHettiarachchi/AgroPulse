@@ -1,5 +1,6 @@
 package com.example.ap2
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.CalendarView
 import androidx.activity.enableEdgeToEdge
@@ -65,14 +66,14 @@ class CalendarActivity : AppCompatActivity() {
 
     private fun updateMonthHeader(date: Date) {
         binding.tvMonth.text = headerMonthFormatter.format(date)
-        // no-op here; the selected date is shown in the activities header
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateActivitiesForDate(date: Date) {
         val entries = ActivityRepository.getForDate(this, date)
         val list = entries.map {
             DayActivityItem(
-                iconResId = R.drawable.ic_placeholder,
+                iconResId = R.drawable.log,
                 title = it.category,
                 subtitle = it.notes,
                 time = it.timeLabel

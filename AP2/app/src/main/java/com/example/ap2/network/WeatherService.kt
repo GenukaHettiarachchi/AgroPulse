@@ -12,7 +12,8 @@ interface WeatherService {
     suspend fun getCurrent(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
-        @Query("current") current: String = "temperature_2m,relative_humidity_2m,weather_code"
+        @Query("current") current: String = "temperature_2m,relative_humidity_2m,weather_code",
+        @Query("timezone") timezone: String = "auto"
     ): WeatherResponse
 
     companion object {

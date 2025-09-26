@@ -13,6 +13,7 @@
         android:text="All Logs"
         android:textStyle="bold"
         android:textSize="22sp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -37,7 +38,8 @@
             android:queryHint="Search logs..."
             app:iconifiedByDefault="false"
             app:queryBackground="@android:color/transparent"
-            app:searchIcon="@drawable/ic_search" />
+            app:searchIcon="@drawable/ic_search"
+            android:layout_marginTop="10dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFilter"
@@ -53,6 +55,7 @@
             app:icon="@drawable/ic_filter"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
+            android:layout_marginTop="10dp"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
     </LinearLayout>
@@ -66,10 +69,12 @@
         app:layout_constraintTop_toBottomOf="@id/llSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
+        android:background="#E8EAF8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav"

@@ -12,7 +12,8 @@
         android:text="Reminders"
         android:textStyle="bold"
         android:textSize="22sp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/tvTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -27,7 +28,8 @@
         app:cornerRadius="10dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReminders"
@@ -42,12 +44,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
-        android:layout_width="0dp"
+        android:background="#E8EAF8"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_nav"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

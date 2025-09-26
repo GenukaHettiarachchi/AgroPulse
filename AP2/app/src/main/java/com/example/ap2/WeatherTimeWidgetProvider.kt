@@ -7,6 +7,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -17,6 +21,16 @@ class WeatherTimeWidgetProvider : AppWidgetProvider() {
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
+
+        // Ensure we fetch fresh weather data when the widget updates
+        // so first-time users or after reboot see data without opening the app.
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val work = OneTimeWorkRequestBuilder<WeatherUpdateWorker>()
+            .setConstraints(constraints)
+            .build()
+        WorkManager.getInstance(context).enqueue(work)
     }
 
     companion object {

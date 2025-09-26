@@ -9,6 +9,10 @@ import android.widget.ArrayAdapter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import java.util.concurrent.TimeUnit
 
 
 class NewReminderActivity : AppCompatActivity() {
@@ -78,5 +82,48 @@ class NewReminderActivity : AppCompatActivity() {
             frequency = frequency,
             notes = notes
         ))
+
+        // Schedule a one-time notification for the selected time
+        scheduleReminderNotification(title, timeLabel)
+    }
+
+    private fun scheduleReminderNotification(title: String, timeLabel: String) {
+        val nextTriggerMillis = tryComputeNextTriggerMillis(timeLabel)
+        val delay = (nextTriggerMillis - System.currentTimeMillis()).coerceAtLeast(0L)
+        val data = Data.Builder()
+            .putString(ReminderWorker.KEY_TITLE, title)
+            .putString(ReminderWorker.KEY_TIME_LABEL, timeLabel)
+            .build()
+        val req = OneTimeWorkRequestBuilder<ReminderWorker>()
+            .setInputData(data)
+            .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+            .build()
+        WorkManager.getInstance(this).enqueue(req)
+    }
+
+    private fun tryComputeNextTriggerMillis(timeLabel: String): Long {
+        val fmt = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val now = Calendar.getInstance()
+        val target = Calendar.getInstance()
+        try {
+            val parsed = fmt.parse(timeLabel)
+            if (parsed != null) {
+                target.time = parsed
+                // keep today's date but use parsed hour/minute
+                val hour = target.get(Calendar.HOUR_OF_DAY)
+                val minute = target.get(Calendar.MINUTE)
+                target.timeInMillis = now.timeInMillis
+                target.set(Calendar.SECOND, 0)
+                target.set(Calendar.MILLISECOND, 0)
+                target.set(Calendar.HOUR_OF_DAY, hour)
+                target.set(Calendar.MINUTE, minute)
+                if (target.before(now)) {
+                    target.add(Calendar.DAY_OF_YEAR, 1)
+                }
+                return target.timeInMillis
+            }
+        } catch (_: Exception) { }
+        // fallback: 1 minute from now
+        return now.timeInMillis + 60_000L
     }
 }

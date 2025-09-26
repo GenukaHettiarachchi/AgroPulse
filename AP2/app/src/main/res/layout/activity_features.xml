@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E8F8EC"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp">
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:background="#C8E6C9"
+            android:layout_marginEnd="6dp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:background="#2E7D32"
+            android:layout_marginEnd="6dp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:background="#C8E6C9"
+            android:layout_marginEnd="6dp" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="6dp"
+            android:background="#C8E6C9" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Features Overview"
+        android:textStyle="bold"
+        android:textColor="#2E7D32"
+        android:textSize="22sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:layout_margin="8dp"
+            android:elevation="1dp"
+            android:clipToPadding="false"
+            android:clipToOutline="false">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_harvest"
+                android:tint="#2E7D32"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log Activities"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Track all your farming activities in one place"
+                android:layout_gravity="center"
+                android:textColor="#666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:layout_margin="8dp"
+            android:elevation="1dp"
+            android:clipToPadding="false"
+            android:clipToOutline="false">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_calendar"
+                android:tint="#2E7D32"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calendar View"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plan and visualize your schedule"
+                android:layout_gravity="center"
+                android:textColor="#666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:layout_margin="8dp"
+            android:elevation="1dp"
+            android:clipToPadding="false"
+            android:clipToOutline="false">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_bell"
+                android:tint="#2E7D32"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reminders"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Never miss important farming tasks"
+                android:layout_gravity="center"
+                android:textColor="#666" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@android:color/white"
+            android:layout_margin="8dp"
+            android:elevation="1dp"
+            android:clipToPadding="false"
+            android:clipToOutline="false">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_weather"
+                android:tint="#2E7D32"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weather Notes"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Make decisions based on weather conditions"
+                android:layout_gravity="center"
+                android:textColor="#666" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:backgroundTint="#2E7D32"
+        android:textColor="@android:color/white"
+        android:layout_margin="8dp"
+        android:layout_gravity="bottom" />
+
+</LinearLayout>

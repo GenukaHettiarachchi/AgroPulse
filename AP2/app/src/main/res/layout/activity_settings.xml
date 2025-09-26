@@ -25,6 +25,7 @@
                 android:text="Settings"
                 android:textStyle="bold"
                 android:textSize="22sp"
+                android:layout_marginTop="50dp"
                 android:layout_marginBottom="16dp" />
 
             <include layout="@layout/row_settings"
@@ -37,7 +38,7 @@
 
             <include layout="@layout/row_settings"
                 android:id="@+id/rowAbout"
-                android:tag="About App information and support" />
+                android:tag="About|App information and support" />
 
             <TextView
                 android:id="@+id/tvVersion"
@@ -45,12 +46,13 @@
                 android:layout_height="wrap_content"
                 android:text="Version 1.0.0"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="290dp" />
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
+        android:background="#E8EAF8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav"

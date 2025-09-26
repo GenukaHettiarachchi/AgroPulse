@@ -11,11 +11,15 @@ data class LogItem(
     val iconResId: Int,
     val title: String,
     val description: String,
-    val date: String
+    val date: String,
+    val savedAt: Long,
+    val srcDateKey: String,
+    val timeLabel: String
 )
 
 class LogItemAdapter(
-    private var items: List<LogItem>
+    private var items: List<LogItem>,
+    private val onDelete: (LogItem) -> Unit
 ) : RecyclerView.Adapter<LogItemAdapter.LogViewHolder>() {
 
     private var filteredItems: List<LogItem> = items
@@ -44,7 +48,7 @@ class LogItemAdapter(
     }
 
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
-        holder.bind(filteredItems[position])
+        holder.bind(filteredItems[position], onDelete)
     }
 
     override fun getItemCount(): Int = filteredItems.size
@@ -54,12 +58,14 @@ class LogItemAdapter(
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
         private val tvDate: TextView = itemView.findViewById(R.id.tvDate)
+        private val btnDelete: View? = itemView.findViewById(R.id.btnDelete)
 
-        fun bind(item: LogItem) {
+        fun bind(item: LogItem, onDelete: (LogItem) -> Unit) {
             ivIcon.setImageResource(item.iconResId)
             tvTitle.text = item.title
             tvDescription.text = item.description
             tvDate.text = item.date
+            btnDelete?.setOnClickListener { onDelete(item) }
         }
     }
 }

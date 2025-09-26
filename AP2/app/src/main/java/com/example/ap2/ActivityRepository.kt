@@ -87,4 +87,68 @@ object ActivityRepository {
         }
         return result.sortedByDescending { it.savedAt }
     }
+
+    fun deleteBySavedAt(context: Context, savedAt: Long): Boolean {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val all = prefs.all
+        for ((k, v) in all) {
+            if (!k.startsWith(KEY_PREFIX)) continue
+            val str = v as? String ?: continue
+            try {
+                val arr = JSONArray(str)
+                var removed = false
+                val newArr = JSONArray()
+                for (i in 0 until arr.length()) {
+                    val o = arr.optJSONObject(i) ?: continue
+                    val entrySavedAt = if (o.has("savedAt")) o.optLong("savedAt") else -1L
+                    if (entrySavedAt == savedAt) {
+                        removed = true
+                        continue
+                    }
+                    newArr.put(o)
+                }
+                if (removed) {
+                    prefs.edit().putString(k, newArr.toString()).apply()
+                    return true
+                }
+            } catch (_: Throwable) {
+                // ignore malformed
+            }
+        }
+        return false
+    }
+
+    fun deleteByKeyAndFields(
+        context: Context,
+        dateKey: String,
+        timeLabel: String,
+        category: String,
+        notes: String
+    ): Boolean {
+        val prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val key = KEY_PREFIX + dateKey
+        val str = prefs.getString(key, null) ?: return false
+        return try {
+            val arr = JSONArray(str)
+            val newArr = JSONArray()
+            var removed = false
+            for (i in 0 until arr.length()) {
+                val o = arr.optJSONObject(i) ?: continue
+                val match = o.optString("time") == timeLabel &&
+                        o.optString("category") == category &&
+                        o.optString("notes") == notes
+                if (!removed && match) {
+                    removed = true
+                    continue
+                }
+                newArr.put(o)
+            }
+            if (removed) {
+                prefs.edit().putString(key, newArr.toString()).apply()
+                true
+            } else false
+        } catch (_: Throwable) {
+            false
+        }
+    }
 }

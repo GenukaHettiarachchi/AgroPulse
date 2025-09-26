@@ -7,12 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ap2.databinding.ActivityAllLogsBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.appcompat.widget.PopupMenu
+import java.text.Collator
+import androidx.appcompat.app.AlertDialog
 
 class AllLogsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAllLogsBinding
     private lateinit var adapter: LogItemAdapter
     private val displayDateFmt = java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault())
+    private val dateKeyFmt = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+
+    private enum class SortType { ACTIVITY_NAME_AZ, TIME_DESC }
+    private var sortType: SortType = SortType.ACTIVITY_NAME_AZ
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,18 +40,32 @@ class AllLogsActivity : AppCompatActivity() {
 
     private fun setupRecycler() {
         binding.recyclerLogs.layoutManager = LinearLayoutManager(this)
-        adapter = LogItemAdapter(emptyList())
+        adapter = LogItemAdapter(emptyList()) { item ->
+            confirmDelete(item)
+        }
         binding.recyclerLogs.adapter = adapter
     }
 
     private fun refreshLogs() {
         val all = ActivityRepository.getAll(this)
-        val items = all.map { entry ->
+
+        val sorted = when (sortType) {
+            SortType.ACTIVITY_NAME_AZ -> {
+                val collator = Collator.getInstance(Locale.getDefault()).apply { strength = Collator.PRIMARY }
+                all.sortedWith(compareBy(collator) { it.category })
+            }
+            SortType.TIME_DESC -> all.sortedByDescending { it.date }
+        }
+
+        val items = sorted.map { entry ->
             LogItem(
-                iconResId = R.drawable.ic_placeholder,
+                iconResId = R.drawable.log,
                 title = entry.category,
                 description = entry.notes,
-                date = displayDateFmt.format(entry.date)
+                date = displayDateFmt.format(entry.date),
+                savedAt = entry.savedAt,
+                srcDateKey = dateKeyFmt.format(entry.date),
+                timeLabel = entry.timeLabel
             )
         }
         adapter.setItems(items)
@@ -77,8 +98,37 @@ class AllLogsActivity : AppCompatActivity() {
             }
         })
 
-        binding.btnFilter.setOnClickListener {
-            // TODO: Implement filter dialog
+        binding.btnFilter.setOnClickListener { view ->
+            val popup = PopupMenu(this, view)
+            popup.menu.add(0, 1, 0, "Sort by Activity Name (A–Z)")
+            popup.menu.add(0, 2, 1, "Sort by Time (Newest)")
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    1 -> { sortType = SortType.ACTIVITY_NAME_AZ; refreshLogs(); true }
+                    2 -> { sortType = SortType.TIME_DESC; refreshLogs(); true }
+                    else -> false
+                }
+            }
+            popup.show()
         }
+    }
+
+    private fun confirmDelete(item: LogItem) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete log")
+            .setMessage("Are you sure you want to delete this log? This action cannot be undone.")
+            .setPositiveButton("Delete") { _, _ ->
+                val byIdRemoved = ActivityRepository.deleteBySavedAt(this, item.savedAt)
+                val removed = if (byIdRemoved) true else ActivityRepository.deleteByKeyAndFields(
+                    this,
+                    dateKey = item.srcDateKey,
+                    timeLabel = item.timeLabel,
+                    category = item.title,
+                    notes = item.description
+                )
+                if (removed) refreshLogs()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }

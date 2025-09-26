@@ -16,7 +16,8 @@
             android:text="New Activity"
             android:textStyle="bold"
             android:textSize="22sp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,9 +54,7 @@
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/dropdownCategory"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_placeholder"
-                android:text="Watering" />
+                android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -82,7 +81,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Water Usage (L)"
+            android:text="Uses"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp" />
 
@@ -95,15 +94,14 @@
                 android:id="@+id/etWater"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter amount"
-                android:inputType="numberDecimal"
-                android:drawableStart="@drawable/ic_placeholder" />
+                android:hint="Quantity"
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="1dp"
             app:cardBackgroundColor="@color/green_light">
