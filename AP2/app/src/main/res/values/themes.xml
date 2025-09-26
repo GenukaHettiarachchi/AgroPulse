@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AP2" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Global font temporarily disabled to avoid crash; will re-enable after fixing downloadable font certs. -->
+    </style>
+
+    <style name="Theme.AP2" parent="Base.Theme.AP2" />
+</resources>

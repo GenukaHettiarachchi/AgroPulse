@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green_primary">#2E7D32</color>
+    <color name="green_dark">#1F6B2A</color>
+    <color name="green_light">#EAF5EC</color>
+    <color name="green_extra_light">#F2F9F3</color>
+    <color name="weather_card_bg">#F0F2FF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#666666</color>
+    <color name="divider">#E0E0E0</color>
+</resources>

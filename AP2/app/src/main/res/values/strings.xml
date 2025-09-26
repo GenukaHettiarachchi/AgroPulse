@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AgroPulse</string>
+    <string name="partly_cloudy">Partly Cloudy</string>
+    <string name="humidity_65">Humidity: 65%</string>
+</resources>
